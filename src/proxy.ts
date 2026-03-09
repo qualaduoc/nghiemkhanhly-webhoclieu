@@ -1,16 +1,16 @@
 // =============================================================================
-// Next.js Middleware
+// Next.js Proxy (trước đây là Middleware)
 // Chạy trước MỌI request, xử lý auth session & bảo vệ route
 // =============================================================================
 
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     return await updateSession(request);
 }
 
-// Cấu hình các route cần chạy middleware
+// Cấu hình các route cần chạy proxy
 // Bỏ qua static files, images, favicon
 export const config = {
     matcher: [
