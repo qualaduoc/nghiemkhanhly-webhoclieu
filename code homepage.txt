@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Học Tập Vui Vẻ - Danh Mục Bài Học</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'nintendo-yellow': '#F9D423',
+            'nintendo-teal': '#4ECDC4',
+            'notebook-bg': '#FDFCF0',
+            'sidebar-bg': '#FFEB3B',
+            'card-orange': '#FFB347',
+            'card-pink': '#FFB6C1',
+            'card-green': '#A8E6CF',
+            'card-blue': '#B2E2F2',
+          },
+          fontFamily: {
+            'kids': ['"Nunito"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-layouts">
+    body {
+      background-color: #E0F7FA;
+      font-family: 'Nunito', sans-serif;
+    }
+    .dotted-bg {
+      background-image: radial-gradient(#FBC02D 10%, transparent 10%);
+      background-size: 20px 20px;
+    }
+    .notebook-spine {
+      background: linear-gradient(90deg, #ccc 0%, #eee 50%, #ccc 100%);
+      width: 20px;
+      border-radius: 4px;
+      position: absolute;
+      left: -10px;
+      height: 95%;
+      top: 2.5%;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 10;
+    }
+    .ring {
+      width: 25px;
+      height: 8px;
+      background: #999;
+      border-radius: 10px;
+      margin-left: -5px;
+    }
+    .speech-bubble {
+      position: relative;
+      background: #ffffff;
+      border-radius: .4em;
+    }
+    .speech-bubble:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 20px solid transparent;
+      border-top-color: #ffffff;
+      border-bottom: 0;
+      border-left: 0;
+      margin-left: -10px;
+      margin-bottom: -20px;
+    }
+    .tab-active {
+      background-color: #FF8A65 !important;
+      color: white !important;
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white shadow-sm border-b-4 border-yellow-400">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<div class="bg-red-500 text-white p-2 rounded-lg font-black text-xl transform -rotate-2 border-2 border-black">
+          HỌC TẬP VUI VẺ
+        </div>
+<nav class="hidden md:flex space-x-6 font-bold text-gray-600">
+<a class="hover:text-yellow-500" href="#">Trang chủ</a>
+<a class="hover:text-yellow-500" href="#">Tài liệu</a>
+<a class="hover:text-yellow-500" href="#">Diễn đàn</a>
+<a class="hover:text-yellow-500" href="#">Liên hệ</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="text-sm font-bold text-gray-500">Chào mừng bạn nhỏ!</div>
+<button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold shadow-lg transition-transform active:scale-95">
+          Đăng nhập
+        </button>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main class="flex max-w-7xl mx-auto mt-4 min-h-[1200px]">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-64 dotted-bg bg-sidebar-bg p-4 flex flex-col items-center space-y-6 shrink-0">
+<!-- Character Avatar Section -->
+<div class="text-center">
+<div class="w-32 h-32 bg-white rounded-full border-4 border-white shadow-inner overflow-hidden mb-2">
+<img alt="Nhân vật hướng dẫn" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNeQjWnNeQp0-ZA7kvbN_cSpOdS0-SCw4pK5pujhZbcQ3n4ieIwO4PZ7pPvRB9uJfuzwB1RE0TTm2PmrM6TLcRPzSyNFd1RGCFhkNoh0NGG3Cz39Tiy96jssaESPlsOgphsCnOba0fI5XV9eqxnJZcPa1NlEq3h9_28yJENTGzxyW02qhkRTKXQsChhFtjtV_OdbnfRDnZNYuTuaS7rlxPEwaEiGhRFCEXSeVbEDbDWwNTaR_zChglZ--Uko8cfL9pwJgvLfL1xRw"/>
+</div>
+<div class="bg-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">Gấu Thông Thái</div>
+</div>
+<!-- Navigation Menu Cards -->
+<nav class="w-full space-y-3">
+<a class="block bg-teal-500 text-white p-3 rounded-xl shadow-md border-b-4 border-teal-700 flex items-center space-x-3 hover:translate-x-1 transition-all" href="#">
+<span class="text-xl">🏠</span>
+<span class="font-bold">Trang chủ</span>
+</a>
+<a class="block bg-orange-400 text-white p-3 rounded-xl shadow-md border-b-4 border-orange-600 flex items-center space-x-3 hover:translate-x-1 transition-all" href="#">
+<span class="text-xl">📚</span>
+<span class="font-bold">Bài học</span>
+</a>
+<a class="block bg-pink-400 text-white p-3 rounded-xl shadow-md border-b-4 border-pink-600 flex items-center space-x-3 hover:translate-x-1 transition-all" href="#">
+<span class="text-xl">🎨</span>
+<span class="font-bold">Sáng tạo</span>
+</a>
+<a class="block bg-blue-400 text-white p-3 rounded-xl shadow-md border-b-4 border-blue-600 flex items-center space-x-3 hover:translate-x-1 transition-all" href="#">
+<span class="text-xl">📅</span>
+<span class="font-bold">Sự kiện</span>
+</a>
+<a class="block bg-yellow-600 text-white p-3 rounded-xl shadow-md border-b-4 border-yellow-800 flex items-center space-x-3 hover:translate-x-1 transition-all" href="#">
+<span class="text-xl">🏆</span>
+<span class="font-bold">Bảng vàng</span>
+</a>
+</nav>
+<!-- Decorative Sidebar Content -->
+<div class="bg-blue-100 p-4 rounded-xl border-2 border-blue-200 w-full mt-10">
+<p class="text-xs font-bold text-blue-800 text-center">GÓC CẬP NHẬT</p>
+<div class="mt-2 text-[10px] space-y-2">
+<div class="bg-white p-1 rounded">🌟 Bài giảng mới lớp 3</div>
+<div class="bg-white p-1 rounded">🎁 Quà tặng Giáng sinh</div>
+</div>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContentNotebook -->
+<section class="flex-grow p-8 relative">
+<div class="bg-notebook-bg min-h-full rounded-tr-3xl rounded-br-3xl shadow-2xl relative p-12 border-l border-gray-200">
+<!-- Notebook Spine Decoration -->
+<div class="notebook-spine">
+<div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+<div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+<div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+<div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+</div>
+<!-- Grade Tabs -->
+<div class="flex space-x-2 absolute -top-10 left-12">
+<button class="bg-gray-400 text-white px-6 py-2 rounded-t-xl font-black text-sm hover:bg-gray-500 transition-colors">Khối 1</button>
+<button class="bg-gray-400 text-white px-6 py-2 rounded-t-xl font-black text-sm hover:bg-gray-500 transition-colors">Khối 2</button>
+<button class="tab-active bg-gray-400 text-white px-8 py-2 rounded-t-xl font-black text-sm">Khối 3</button>
+<div class="bg-orange-500 text-white px-4 py-2 rounded-t-xl font-black text-sm ml-auto">Tháng 12 ❄️</div>
+</div>
+<!-- Section Header -->
+<div class="flex justify-between items-end border-b-4 border-green-500 pb-4 mb-8">
+<h1 class="text-4xl font-black text-green-600 tracking-tighter">DANH MỤC BÀI HỌC</h1>
+<div class="text-right">
+<span class="text-sm font-bold text-gray-400 italic">Cùng nhau khám phá kiến thức mới!</span>
+</div>
+</div>
+<!-- Lesson Grid (Primary Content) -->
+<div class="grid grid-cols-2 gap-6 mb-12">
+<!-- Math Card -->
+<div class="bg-white border-2 border-orange-200 rounded-2xl p-6 shadow-sm flex space-x-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-16 h-16 bg-card-orange rounded-xl flex items-center justify-center text-3xl shrink-0">➕</div>
+<div>
+<h3 class="font-black text-orange-600 text-lg">Toán Học</h3>
+<p class="text-sm text-gray-500">Phép nhân, phép chia và các hình khối cơ bản trong cuộc sống.</p>
+</div>
+</div>
+<!-- Literature Card -->
+<div class="bg-white border-2 border-pink-200 rounded-2xl p-6 shadow-sm flex space-x-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-16 h-16 bg-card-pink rounded-xl flex items-center justify-center text-3xl shrink-0">📖</div>
+<div>
+<h3 class="font-black text-pink-600 text-lg">Tiếng Việt</h3>
+<p class="text-sm text-gray-500">Tập đọc, kể chuyện và những bài thơ hay về gia đình.</p>
+</div>
+</div>
+<!-- Science Card -->
+<div class="bg-white border-2 border-green-200 rounded-2xl p-6 shadow-sm flex space-x-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-16 h-16 bg-card-green rounded-xl flex items-center justify-center text-3xl shrink-0">🌿</div>
+<div>
+<h3 class="font-black text-green-600 text-lg">Tự Nhiên &amp; Xã Hội</h3>
+<p class="text-sm text-gray-500">Tìm hiểu về thế giới động vật và môi trường xung quanh.</p>
+</div>
+</div>
+<!-- English Card -->
+<div class="bg-white border-2 border-blue-200 rounded-2xl p-6 shadow-sm flex space-x-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-16 h-16 bg-card-blue rounded-xl flex items-center justify-center text-3xl shrink-0">🔤</div>
+<div>
+<h3 class="font-black text-blue-600 text-lg">Tiếng Anh</h3>
+<p class="text-sm text-gray-500">Từ vựng về màu sắc, đồ vật và giao tiếp căn bản.</p>
+</div>
+</div>
+</div>
+<!-- Event Calendar Grid -->
+<div class="mt-12">
+<h2 class="text-2xl font-black text-gray-700 mb-6 flex items-center">
+<span class="mr-2">📅</span> Lịch Học &amp; Sự Kiện Tháng 12
+          </h2>
+<div class="grid grid-cols-4 gap-4">
+<!-- Example Date Tiles based on reference style -->
+<div class="bg-white p-3 rounded-lg border-2 border-teal-100 flex items-center space-x-2">
+<div class="w-10 h-10 bg-teal-50 rounded-full flex items-center justify-center text-teal-600 font-bold">1</div>
+<div class="text-[10px] font-bold text-gray-500">Khai giảng tháng mới</div>
+</div>
+<div class="bg-white p-3 rounded-lg border-2 border-pink-100 flex items-center space-x-2">
+<div class="w-10 h-10 bg-pink-50 rounded-full flex items-center justify-center text-pink-600 font-bold">5</div>
+<div class="text-[10px] font-bold text-gray-500">Ngày hội đọc sách</div>
+</div>
+<div class="bg-white p-3 rounded-lg border-2 border-orange-100 flex items-center space-x-2">
+<div class="w-10 h-10 bg-orange-50 rounded-full flex items-center justify-center text-orange-600 font-bold">12</div>
+<div class="text-[10px] font-bold text-gray-500">Thi giải toán nhanh</div>
+</div>
+<div class="bg-white p-3 rounded-lg border-2 border-blue-100 flex items-center space-x-2">
+<div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold">22</div>
+<div class="text-[10px] font-bold text-gray-500">Hội diễn văn nghệ</div>
+</div>
+<!-- More dates to fill grid... -->
+<div class="bg-white p-3 rounded-lg border border-gray-100 flex items-center space-x-2 opacity-50">
+<div class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 font-bold">25</div>
+<div class="text-[10px] font-bold text-gray-400">Nghỉ lễ</div>
+</div>
+</div>
+</div>
+<!-- Mascot Question Box -->
+<div class="mt-16 flex justify-center">
+<div class="speech-bubble p-6 max-w-lg shadow-xl border-4 border-yellow-400">
+<p class="text-center font-bold text-gray-700 text-lg">
+              Chào bạn nhỏ! Bạn đã tìm thấy bài học mà mình yêu thích chưa? 
+              Nếu cần hỗ trợ, đừng ngần ngại hỏi Gấu Thông Thái nhé!
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: MainContentNotebook -->
+<!-- BEGIN: RightSidebar -->
+<aside class="w-72 p-4 pt-12 space-y-8">
+<!-- Parents Corner -->
+<section>
+<div class="bg-white rounded-2xl shadow-md overflow-hidden border-2 border-purple-200">
+<div class="bg-purple-500 text-white p-3 font-black text-center">
+            GÓC PHỤ HUYNH
+          </div>
+<div class="p-4 space-y-4">
+<div class="group cursor-pointer">
+<div class="overflow-hidden rounded-lg mb-2">
+<img alt="Cẩm nang" class="w-full h-32 object-cover transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChRInspCOn5AGopsHbT5eIC6Sx7EoXf_dicu57BCkcPmOgup6C5cd0WN7owMB6qzgpekKC8C6Q8C8jGdMF_evBTwqq7VXj4D36vFxmy3bwTeuqpkdvEO7dsNwoAW8OJ3IIgmNsKLoN40y7T1a8PTT1IvGcgMUfp1NoULZa1EI5Zml8EWYlwR8QkDXsk9BtSjjw6fg1aMg10FRe2wVVS2YguCmYLXO39p82cv96HigoO4Ll8kUTxk6A3R1gNMhbnh4E7PWTzHpYpQM"/>
+</div>
+<h4 class="font-bold text-sm text-purple-700">Cẩm nang đồng hành cùng con</h4>
+<p class="text-[10px] text-gray-500">Cách giúp trẻ yêu thích việc tự học tại nhà...</p>
+</div>
+<hr class="border-purple-100"/>
+<div class="flex items-center space-x-3 cursor-pointer">
+<div class="w-12 h-12 bg-yellow-100 rounded-lg flex-shrink-0 flex items-center justify-center text-xl">📢</div>
+<div>
+<h4 class="font-bold text-xs text-gray-700">Thông báo họp hội phụ huynh</h4>
+<p class="text-[9px] text-gray-400">Cập nhật ngày 20/12</p>
+</div>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer">
+<div class="w-12 h-12 bg-green-100 rounded-lg flex-shrink-0 flex items-center justify-center text-xl">🔍</div>
+<div>
+<h4 class="font-bold text-xs text-gray-700">Khám phá tiềm năng của trẻ</h4>
+<p class="text-[9px] text-gray-400">Trắc nghiệm tính cách miễn phí</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Links / Search -->
+<section class="bg-teal-50 p-6 rounded-2xl border-dashed border-2 border-teal-300">
+<h3 class="font-black text-teal-700 mb-4 text-center">TÌM BÀI HỌC NHANH</h3>
+<div class="relative">
+<input class="w-full rounded-full border-teal-200 text-sm pl-10" placeholder="Gõ từ khóa..." type="text"/>
+<span class="absolute left-3 top-2.5">🔍</span>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="bg-white px-2 py-1 rounded-md text-[10px] font-bold text-teal-600 border border-teal-100 cursor-pointer">#ToanLop3</span>
+<span class="bg-white px-2 py-1 rounded-md text-[10px] font-bold text-teal-600 border border-teal-100 cursor-pointer">#KeChuyen</span>
+<span class="bg-white px-2 py-1 rounded-md text-[10px] font-bold text-teal-600 border border-teal-100 cursor-pointer">#English</span>
+</div>
+</section>
+</aside>
+<!-- END: RightSidebar -->
+</main>
+<!-- BEGIN: Footer -->
+<footer class="bg-teal-600 text-white mt-12 py-8">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+<div class="mb-4 md:mb-0">
+<div class="font-black text-xl mb-2">HỌC TẬP VUI VẺ</div>
+<p class="text-xs opacity-80">© 2024 Bản quyền thuộc về Nhóm Phát Triển Giáo Dục Tiểu Học</p>
+</div>
+<div class="flex space-x-8 text-sm font-bold">
+<a class="hover:underline" href="#">Về chúng tôi</a>
+<a class="hover:underline" href="#">Chính sách bảo mật</a>
+<a class="hover:underline" href="#">Điều khoản sử dụng</a>
+</div>
+<div class="mt-4 md:mt-0 flex space-x-4">
+<div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center cursor-pointer">f</div>
+<div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center cursor-pointer">yt</div>
+</div>
+</div>
+<div class="text-center mt-6 text-[10px] opacity-50 uppercase tracking-widest">
+      Sáng tạo - Kết nối - Thành công
+    </div>
+</footer>
+<!-- END: Footer -->
+</body></html>

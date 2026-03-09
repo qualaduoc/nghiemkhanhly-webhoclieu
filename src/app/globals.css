@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   Design Tokens - Website Học Tập Vui Vẻ
+   Phong cách: Notebook trẻ em, colorful, vui nhộn
+   ============================================================================= */
+
+@theme inline {
+  /* Màu chính theo design reference */
+  --color-nintendo-yellow: #F9D423;
+  --color-nintendo-teal: #4ECDC4;
+  --color-notebook-bg: #FDFCF0;
+  --color-sidebar-bg: #FFEB3B;
+  --color-page-bg: #E0F7FA;
+
+  /* Màu card theo môn học */
+  --color-card-orange: #FFB347;
+  --color-card-pink: #FFB6C1;
+  --color-card-green: #A8E6CF;
+  --color-card-blue: #B2E2F2;
+
+  /* Typography */
+  --font-kids: 'Nunito', sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* =============================================================================
+   Base Styles
+   ============================================================================= */
+
+body {
+  background-color: var(--color-page-bg);
+  font-family: var(--font-kids);
+}
+
+/* Background chấm vàng cho sidebar */
+.dotted-bg {
+  background-image: radial-gradient(#FBC02D 10%, transparent 10%);
+  background-size: 20px 20px;
+}
+
+/* Gáy sổ notebook */
+.notebook-spine {
+  background: linear-gradient(90deg, #ccc 0%, #eee 50%, #ccc 100%);
+  width: 20px;
+  border-radius: 4px;
+  position: absolute;
+  left: -10px;
+  height: 95%;
+  top: 2.5%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.notebook-spine .ring {
+  width: 25px;
+  height: 8px;
+  background: #999;
+  border-radius: 10px;
+  margin-left: -5px;
+}
+
+/* Tab khối lớp active */
+.tab-active {
+  background-color: #FF8A65 !important;
+  color: white !important;
+  transform: translateY(-4px);
+}
+
+/* Speech bubble (lời nhắn mascot) */
+.speech-bubble {
+  position: relative;
+  background: #ffffff;
+  border-radius: 0.4em;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top-color: #ffffff;
+  border-bottom: 0;
+  border-left: 0;
+  margin-left: -10px;
+  margin-bottom: -20px;
+}
+
+/* Star rating */
+.star-rating {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star-rating .star {
+  color: #d1d5db;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.star-rating .star.active {
+  color: #F59E0B;
+}
+
+.star-rating .star:hover {
+  color: #F59E0B;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Loading skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
