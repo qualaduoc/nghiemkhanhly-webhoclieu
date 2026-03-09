@@ -53,7 +53,36 @@ export function formatDownloadCount(count: number): string {
 }
 
 /**
- * Tạo URL Google Drive để tải/xem file từ drive_id.
+ * Tự động bóc Google Drive file ID từ bất kỳ dạng link nào.
+ * Hỗ trợ:
+ * - https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
+ * - https://drive.google.com/open?id=FILE_ID
+ * - https://drive.google.com/uc?id=FILE_ID&export=download
+ * - Hoặc chỉ là FILE_ID thuần
+ */
+export function extractDriveId(input: string): string {
+    if (!input) return "";
+    const trimmed = input.trim();
+
+    // Pattern 1: /file/d/FILE_ID/
+    const fileMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch) return fileMatch[1];
+
+    // Pattern 2: ?id=FILE_ID hoặc &id=FILE_ID
+    const idMatch = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (idMatch) return idMatch[1];
+
+    // Pattern 3: /folders/FOLDER_ID (cho folder links)
+    const folderMatch = trimmed.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+    if (folderMatch) return folderMatch[1];
+
+    // Nếu không match pattern nào → coi như đã là ID thuần
+    return trimmed;
+}
+
+/**
+ * Tạo URL Google Drive để tải file trực tiếp (direct download).
+ * Không lộ link Drive gốc.
  */
 export function getDriveDownloadUrl(driveId: string): string {
     return `https://drive.google.com/uc?export=download&id=${driveId}`;

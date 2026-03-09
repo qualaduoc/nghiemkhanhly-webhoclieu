@@ -19,7 +19,7 @@ import {
     deleteMaterial,
 } from "@/lib/actions";
 import { FadeUp } from "@/components/ui/Animations";
-import { formatDownloadCount } from "@/lib/utils";
+import { formatDownloadCount, extractDriveId } from "@/lib/utils";
 import { FILE_TYPES } from "@/lib/constants";
 import type { Material, Category, MaterialFormData, FileType } from "@/types/database";
 
@@ -173,18 +173,23 @@ export default function AdminMaterialsPage() {
                                         />
                                     </div>
 
-                                    {/* Drive ID */}
+                                    {/* Google Drive Link */}
                                     <div>
-                                        <label className="text-sm font-bold text-gray-600 block mb-1">Google Drive ID *</label>
+                                        <label className="text-sm font-bold text-gray-600 block mb-1">Link Google Drive *</label>
                                         <input
                                             value={form.drive_id}
-                                            onChange={(e) => setForm({ ...form, drive_id: e.target.value })}
+                                            onChange={(e) => setForm({ ...form, drive_id: extractDriveId(e.target.value) })}
                                             className="w-full border-2 border-gray-200 rounded-xl p-3 text-sm focus:border-orange-400 focus:outline-none"
-                                            placeholder="1aBcDeFgHiJkLmNoPqRsT..."
+                                            placeholder="Dán link Google Drive hoặc ID vào đây..."
                                         />
                                         <p className="text-[10px] text-gray-400 mt-1">
-                                            Lấy từ URL: drive.google.com/file/d/<strong>ID_Ở_ĐÂY</strong>/view
+                                            📋 Paste cả link (vd: drive.google.com/file/d/xxx/view) → hệ thống tự bóc ID
                                         </p>
+                                        {form.drive_id && (
+                                            <p className="text-[10px] text-green-600 font-bold mt-1">
+                                                ✅ Drive ID: {form.drive_id}
+                                            </p>
+                                        )}
                                     </div>
 
                                     {/* Category + File Type */}

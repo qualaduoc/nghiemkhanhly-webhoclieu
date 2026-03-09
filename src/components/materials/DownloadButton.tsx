@@ -2,10 +2,10 @@
 
 import { Download } from "lucide-react";
 import { recordDownload } from "@/lib/actions";
-import { getDriveViewUrl } from "@/lib/utils";
+import { getDriveDownloadUrl } from "@/lib/utils";
 
 // =============================================================================
-// DownloadButton — Ghi lịch sử + mở Google Drive
+// DownloadButton — Ghi lịch sử + Direct Download (không lộ link Drive)
 // =============================================================================
 
 export function DownloadButton({
@@ -21,7 +21,16 @@ export function DownloadButton({
         } catch {
             // Không block download nếu lỗi ghi lịch sử
         }
-        window.open(getDriveViewUrl(driveId), "_blank");
+
+        // Direct download — file tự tải, không mở tab Drive
+        const link = document.createElement("a");
+        link.href = getDriveDownloadUrl(driveId);
+        link.setAttribute("download", "");
+        link.setAttribute("target", "_blank");
+        link.rel = "noopener noreferrer";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     return (
