@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search, Users, Globe, UserPlus, Eye } from "lucide-react";
+import { getVisitorStats } from "@/lib/visitor-stats";
 
 // =============================================================================
 // RightSidebar - Thanh bên phải
@@ -16,40 +17,6 @@ const QUICK_TAGS = [
     "#TuNhien",
     "#DeThi",
 ];
-
-// Tạo số giả ngẫu nhiên nhưng cố định theo ngày (seed-based)
-function seededRandom(seed: number): number {
-    const x = Math.sin(seed * 9301 + 49297) * 233280;
-    return x - Math.floor(x);
-}
-
-function getVisitorStats() {
-    const now = new Date();
-    const launchDate = new Date("2025-09-01"); // Ngày "launch" giả
-    const daysSinceLaunch = Math.floor(
-        (now.getTime() - launchDate.getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    // Seed theo ngày hiện tại (cùng ngày = cùng số)
-    const daySeed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-
-    // Tổng truy cập: tăng ~120-280 mỗi ngày
-    let totalVisitors = 12450; // Base
-    for (let i = 0; i < daysSinceLaunch; i++) {
-        totalVisitors += Math.floor(seededRandom(daySeed - i) * 160 + 120);
-    }
-
-    // Thành viên mới hôm nay: 3-15 người
-    const newMembers = Math.floor(seededRandom(daySeed + 777) * 12 + 3);
-
-    // Lượt xem hôm nay: 80-350
-    const todayViews = Math.floor(seededRandom(daySeed + 555) * 270 + 80);
-
-    // Online: 5-35, thay đổi mỗi lần gọi
-    const online = Math.floor(Math.random() * 30 + 5);
-
-    return { totalVisitors, online, newMembers, todayViews };
-}
 
 export function RightSidebar() {
     const [searchQuery, setSearchQuery] = useState("");

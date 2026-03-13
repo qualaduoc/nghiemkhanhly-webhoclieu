@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import {
     BarChart3,
@@ -24,6 +26,7 @@ import {
     Line,
 } from "recharts";
 import { formatDownloadCount } from "@/lib/utils";
+import { getVisitorStats } from "@/lib/visitor-stats";
 import type { DashboardStats, DownloadChartData } from "@/types/database";
 
 // =============================================================================
@@ -134,6 +137,19 @@ const ADMIN_MENU = [
 ];
 
 export default function AdminDashboardPage() {
+    const [visitorStats, setVisitorStats] = useState(getVisitorStats);
+
+    // Cập nhật online mỗi 5 giây — khớp với trang chủ
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setVisitorStats((prev) => ({
+                ...prev,
+                online: Math.floor(Math.random() * 30 + 5),
+            }));
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Admin Header */}
@@ -240,6 +256,40 @@ export default function AdminDashboardPage() {
                                 />
                             </LineChart>
                         </ResponsiveContainer>
+                    </div>
+                </div>
+
+                {/* Thống kê truy cập */}
+                <h2 className="font-black text-gray-700 text-xl mb-4">
+                    📊 Thống kê truy cập
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-indigo-100 text-center">
+                        <p className="text-2xl font-black text-indigo-600">{visitorStats.totalVisitors.toLocaleString("vi-VN")}</p>
+                        <p className="text-xs text-gray-500 font-medium mt-1">🌐 Tổng truy cập</p>
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-green-100 text-center">
+                        <div className="flex items-center justify-center gap-1">
+                            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                            <p className="text-2xl font-black text-green-600">{visitorStats.online}</p>
+                        </div>
+                        <p className="text-xs text-gray-500 font-medium mt-1">👥 Đang online</p>
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-orange-100 text-center">
+                        <p className="text-2xl font-black text-orange-600">{visitorStats.todayViews}</p>
+                        <p className="text-xs text-gray-500 font-medium mt-1">👁️ Xem hôm nay</p>
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-pink-100 text-center">
+                        <p className="text-2xl font-black text-pink-600">+{visitorStats.newMembers}</p>
+                        <p className="text-xs text-gray-500 font-medium mt-1">🆕 TV mới hôm nay</p>
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-blue-100 text-center">
+                        <p className="text-2xl font-black text-blue-600">{visitorStats.totalMembers.toLocaleString("vi-VN")}</p>
+                        <p className="text-xs text-gray-500 font-medium mt-1">👤 Tổng thành viên</p>
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-amber-100 text-center">
+                        <p className="text-2xl font-black text-amber-600">{visitorStats.totalMaterials}</p>
+                        <p className="text-xs text-gray-500 font-medium mt-1">📄 Tổng tài liệu</p>
                     </div>
                 </div>
 
