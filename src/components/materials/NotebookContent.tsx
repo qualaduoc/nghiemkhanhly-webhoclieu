@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import type { GradeLevel, Category, Material } from "@/types/database";
+import type { GradeLevel, Category, Material, Feedback } from "@/types/database";
 import { GradeTabs } from "@/components/materials/GradeTabs";
 import { SubjectCard } from "@/components/materials/SubjectCard";
 import { MaterialCard } from "@/components/materials/MaterialCard";
+import { FeedbackSection } from "@/components/feedback/FeedbackSection";
 
 // =============================================================================
 // NotebookContent - Phần nội dung chính dạng sổ ghi (Notebook Style)
@@ -15,12 +16,14 @@ interface NotebookContentProps {
     categories: Category[];
     latestMaterials: Material[];
     popularMaterials: Material[];
+    feedbacks: Feedback[];
 }
 
 export function NotebookContent({
     categories,
     latestMaterials,
     popularMaterials,
+    feedbacks,
 }: NotebookContentProps) {
     const [activeGrade, setActiveGrade] = useState<GradeLevel>(1);
 
@@ -102,6 +105,9 @@ export function NotebookContent({
                         </div>
                     </div>
                 )}
+
+                {/* Section: Ý kiến đóng góp */}
+                <FeedbackSection feedbacks={feedbacks} />
 
                 {/* Lời nhắn Mascot */}
                 <div className="mt-16 flex justify-center">

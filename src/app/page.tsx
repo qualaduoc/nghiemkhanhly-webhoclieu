@@ -3,7 +3,7 @@ import { NotebookContent } from "@/components/materials/NotebookContent";
 import { PageTransition } from "@/components/ui/Animations";
 import type { Category, Material, GradeLevel } from "@/types/database";
 import { createClient } from "@/lib/supabase/server";
-import { getSiteSettings } from "@/lib/actions";
+import { getSiteSettings, getApprovedFeedbacks } from "@/lib/actions";
 
 // =============================================================================
 // Trang chủ — Server Component (fetch Supabase thực)
@@ -56,9 +56,10 @@ async function fetchData() {
 }
 
 export default async function HomePage() {
-  const [{ categories, latestMaterials, popularMaterials }, settings] = await Promise.all([
+  const [{ categories, latestMaterials, popularMaterials }, settings, feedbacks] = await Promise.all([
     fetchData(),
     getSiteSettings(),
+    getApprovedFeedbacks().catch(() => []),
   ]);
 
   return (
@@ -71,6 +72,7 @@ export default async function HomePage() {
             categories={categories}
             latestMaterials={latestMaterials}
             popularMaterials={popularMaterials}
+            feedbacks={feedbacks}
           />
           <RightSidebar />
         </main>

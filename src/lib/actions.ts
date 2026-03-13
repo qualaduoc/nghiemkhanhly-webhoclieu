@@ -11,6 +11,8 @@ import type {
     NewsFormData,
     GradeLevel,
     SiteSettings,
+    Feedback,
+    FeedbackRole,
 } from "@/types/database";
 
 // =============================================================================
@@ -334,4 +336,64 @@ export async function updateSiteSettings(
 
     revalidatePath("/", "layout");
     revalidatePath("/admin/settings");
+}
+
+// ── Feedbacks (Ý kiến đóng góp) ──────────────────────────────────────────────
+
+export async function getApprovedFeedbacks() {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from("feedbacks")
+        .select("*")
+        .eq("is_approved", true)
+        .order("created_at", { ascending: false })
+        .limit(20);
+    if (error) throw error;
+    return (data || []) as Feedback[];
+}
+
+export async function getAllFeedbacks() {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from("feedbacks")
+        .select("*")
+        .order("created_at", { ascending: false });
+    if (error) throw error;
+    return (data || []) as Feedback[];
+}
+
+export async function createFeedback(feedback: {
+    author_name: string;
+    author_role: FeedbackRole;
+    content: string;
+}) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { error } = await supabase.from("feedbacks").insert({
+        ...feedback,
+        user_id: user?.id || null,
+        is_approved: false,
+    });
+    if (error) throw error;
+    revalidatePath("/");
+}
+
+export async function toggleFeedbackApproval(id: string, approved: boolean) {
+    const supabase = await createClient();
+    const { error } = await supabase
+        .from("feedbacks")
+        .update({ is_approved: approved })
+        .eq("id", id);
+    if (error) throw error;
+    revalidatePath("/");
+    revalidatePath("/admin/feedbacks");
+}
+
+export async function deleteFeedback(id: string) {
+    const supabase = await createClient();
+    const { error } = await supabase.from("feedbacks").delete().eq("id", id);
+    if (error) throw error;
+    revalidatePath("/");
+    revalidatePath("/admin/feedbacks");
 }

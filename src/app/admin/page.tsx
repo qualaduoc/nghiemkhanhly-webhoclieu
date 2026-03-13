@@ -13,6 +13,7 @@ import {
     FileText,
     Newspaper,
     Settings,
+    MessageCircle,
 } from "lucide-react";
 import {
     BarChart,
@@ -140,6 +141,13 @@ const ADMIN_MENU = [
         icon: BarChart3,
         desc: "Báo cáo theo tháng/năm",
         color: "bg-indigo-500",
+    },
+    {
+        label: "Ý kiến đóng góp",
+        href: "/admin/feedbacks",
+        icon: MessageCircle,
+        desc: "Duyệt & quản lý ý kiến",
+        color: "bg-teal-500",
     },
 ];
 

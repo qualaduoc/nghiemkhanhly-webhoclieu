@@ -189,3 +189,17 @@ export interface SiteSettings {
   og_image: string;
   updated_at: string;
 }
+
+/** Vai trò người gửi ý kiến */
+export type FeedbackRole = "phu_huynh" | "hoc_sinh" | "giao_vien" | "khac";
+
+/** Bảng feedbacks - Ý kiến đóng góp */
+export interface Feedback {
+  id: string;
+  user_id: string | null;
+  author_name: string;
+  author_role: FeedbackRole;
+  content: string;
+  is_approved: boolean;
+  created_at: string;
+}
