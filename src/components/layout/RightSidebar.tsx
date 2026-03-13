@@ -58,29 +58,29 @@ export function RightSidebar() {
 
                         <hr className="border-teal-100" />
 
-                        {/* Tin tức nhỏ */}
+                        {/* Trò chơi hot */}
                         <div className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-1 rounded-lg transition-colors">
-                            <div className="w-12 h-12 bg-yellow-100 rounded-lg shrink-0 flex items-center justify-center text-xl">
-                                📢
+                            <div className="w-12 h-12 bg-purple-100 rounded-lg shrink-0 flex items-center justify-center text-xl">
+                                🎮
                             </div>
                             <div>
                                 <h4 className="font-bold text-xs text-gray-700">
-                                    Thông báo lịch thi học kỳ
+                                    Trò chơi Toán vui
                                 </h4>
-                                <p className="text-[9px] text-gray-400">Cập nhật mới nhất</p>
+                                <p className="text-[9px] text-gray-400">Thử thách trí tuệ!</p>
                             </div>
                         </div>
 
                         <div className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-1 rounded-lg transition-colors">
                             <div className="w-12 h-12 bg-green-100 rounded-lg shrink-0 flex items-center justify-center text-xl">
-                                🔍
+                                🧩
                             </div>
                             <div>
                                 <h4 className="font-bold text-xs text-gray-700">
-                                    Khám phá tiềm năng của trẻ
+                                    Ghép hình Tiếng Việt
                                 </h4>
                                 <p className="text-[9px] text-gray-400">
-                                    Trắc nghiệm tính cách miễn phí
+                                    Học từ vựng qua trò chơi
                                 </p>
                             </div>
                         </div>
