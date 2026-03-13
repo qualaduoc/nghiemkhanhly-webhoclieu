@@ -8,6 +8,7 @@ import { GradeTabs } from "@/components/materials/GradeTabs";
 import { SubjectCard } from "@/components/materials/SubjectCard";
 import { MaterialCard } from "@/components/materials/MaterialCard";
 import { FeedbackSection } from "@/components/feedback/FeedbackSection";
+import { getGamePlaceholder } from "@/lib/placeholders";
 
 // =============================================================================
 // NotebookContent - Phần nội dung chính dạng sổ ghi (Notebook Style)
@@ -100,7 +101,7 @@ export function NotebookContent({
                                         {game.thumbnail ? (
                                             <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" />
                                         ) : (
-                                            <span className="text-4xl group-hover:scale-110 transition-transform">🎮</span>
+                                            <span className="text-5xl group-hover:scale-110 transition-transform">{getGamePlaceholder(game.title)}</span>
                                         )}
                                     </div>
                                     <div className="p-3">

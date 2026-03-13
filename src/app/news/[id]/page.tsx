@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Gamepad2 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import type { News } from "@/types/database";
+import { getGamePlaceholder } from "@/lib/placeholders";
 
 // =============================================================================
 // Trang chi tiết trò chơi — Server Component
@@ -53,7 +54,7 @@ export default async function GameDetailPage({
                     <FadeUp>
                         <article className="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100">
                             <div className="h-52 bg-gradient-to-br from-purple-100 via-pink-50 to-yellow-100 flex items-center justify-center">
-                                {game.thumbnail ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" /> : <span className="text-7xl">🎮</span>}
+                                {game.thumbnail ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" /> : <span className="text-7xl">{getGamePlaceholder(game.title)}</span>}
                             </div>
                             <div className="p-6 md:p-8">
                                 <span className="text-sm text-gray-400 flex items-center gap-1 mb-4"><Calendar size={14} />{formatDate(game.created_at, "long")}</span>

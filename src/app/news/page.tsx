@@ -5,6 +5,7 @@ import { Calendar, Gamepad2, ExternalLink } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import type { News } from "@/types/database";
+import { getGamePlaceholder } from "@/lib/placeholders";
 
 // =============================================================================
 // Trang Trò chơi vui học — Danh sách các game học tập
@@ -39,7 +40,7 @@ export default async function GamesPage() {
                                         {game.thumbnail ? (
                                             <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" />
                                         ) : (
-                                            <span className="text-5xl group-hover:scale-110 transition-transform">🎮</span>
+                                            <span className="text-5xl group-hover:scale-110 transition-transform">{getGamePlaceholder(game.title)}</span>
                                         )}
                                     </div>
                                     <div className="p-5">

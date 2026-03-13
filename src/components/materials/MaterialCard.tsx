@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Download, Star } from "lucide-react";
 import type { Material } from "@/types/database";
 import { formatDownloadCount } from "@/lib/utils";
+import { getMaterialPlaceholder } from "@/lib/placeholders";
 
 // =============================================================================
 // MaterialCard - Card hiển thị tài liệu đơn lẻ
@@ -14,13 +15,15 @@ interface MaterialCardProps {
 }
 
 export function MaterialCard({ material, averageRating }: MaterialCardProps) {
+    const placeholder = getMaterialPlaceholder(material.title, material.file_type);
+
     return (
         <Link
             href={`/materials/${material.id}`}
             className="bg-white rounded-2xl overflow-hidden shadow-sm border-2 border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all group"
         >
             {/* Ảnh bìa */}
-            <div className="relative h-40 bg-gradient-to-br from-orange-100 to-pink-100 overflow-hidden">
+            <div className={`relative h-40 bg-gradient-to-br ${placeholder.from} ${placeholder.to} overflow-hidden`}>
                 {material.cover_image ? (
                     <img
                         src={material.cover_image}
@@ -28,8 +31,8 @@ export function MaterialCard({ material, averageRating }: MaterialCardProps) {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center text-5xl">
-                        📄
+                    <div className="w-full h-full flex items-center justify-center text-5xl group-hover:scale-110 transition-transform">
+                        {placeholder.icon}
                     </div>
                 )}
                 {/* Badge loại file */}
