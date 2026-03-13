@@ -87,13 +87,14 @@ export interface ReviewWithProfile extends Review {
 }
 
 // =============================================================================
-// Bảng news - Tin tức / Bài viết
+// Bảng news - Trò chơi vui học (game link)
 // =============================================================================
 export interface News {
   id: string; // UUID
   title: string;
-  content: string; // Nội dung HTML
+  content: string; // Mô tả HTML
   thumbnail: string | null; // URL ảnh thumbnail
+  game_url: string | null; // Link chơi game
   created_at: string;
 }
 
@@ -162,11 +163,12 @@ export interface CategoryFormData {
   grade: GradeLevel;
 }
 
-/** Form data khi tạo/sửa tin tức (Admin) */
+/** Form data khi tạo/sửa trò chơi (Admin) */
 export interface NewsFormData {
   title: string;
   content: string;
   thumbnail: string;
+  game_url: string;
 }
 
 /** Cấu hình website (Admin Settings) */

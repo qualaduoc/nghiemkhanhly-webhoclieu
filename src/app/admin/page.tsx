@@ -11,7 +11,7 @@ import {
     Download,
     TrendingUp,
     FileText,
-    Newspaper,
+    Gamepad2,
     Settings,
     MessageCircle,
 } from "lucide-react";
@@ -122,11 +122,11 @@ const ADMIN_MENU = [
         color: "bg-blue-500",
     },
     {
-        label: "Quản lý Tin tức",
+        label: "Trò chơi vui học",
         href: "/admin/news",
-        icon: Newspaper,
-        desc: "Đăng bài & quản lý tin tức",
-        color: "bg-pink-500",
+        icon: Gamepad2,
+        desc: "Đăng game & quản lý trò chơi",
+        color: "bg-purple-500",
     },
     {
         label: "Cài đặt Website",

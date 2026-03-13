@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { BookOpen, Home, Newspaper, Phone, LogIn, Menu, X, User, LogOut, Shield } from "lucide-react";
+import { BookOpen, Home, Gamepad2, Phone, LogIn, Menu, X, User, LogOut, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/types/database";
@@ -15,7 +15,7 @@ import type { Profile } from "@/types/database";
 const NAV_LINKS = [
     { href: "/", label: "Trang chủ", icon: Home },
     { href: "/materials", label: "Tài liệu", icon: BookOpen },
-    { href: "/news", label: "Tin tức", icon: Newspaper },
+    { href: "/news", label: "Trò chơi", icon: Gamepad2 },
     { href: "/contact", label: "Liên hệ", icon: Phone },
 ];
 

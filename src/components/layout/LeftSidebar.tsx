@@ -27,11 +27,11 @@ const MENU_ITEMS = [
     },
     {
         href: "/news",
-        label: "Tin tức",
-        emoji: "🎨",
+        label: "Trò chơi",
+        emoji: "🎮",
         icon: Palette,
-        bg: "bg-pink-400",
-        border: "border-pink-600",
+        bg: "bg-purple-400",
+        border: "border-purple-600",
     },
     {
         href: "/news",
