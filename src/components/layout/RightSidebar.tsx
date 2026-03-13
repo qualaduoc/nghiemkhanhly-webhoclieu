@@ -22,13 +22,12 @@ export function RightSidebar() {
     const [searchQuery, setSearchQuery] = useState("");
     const [stats, setStats] = useState(getVisitorStats);
 
-    // Cập nhật số online mỗi 5 giây cho hiệu ứng real-time
+    // Set online ngay khi mount (client-only) + cập nhật mỗi 5 giây
     useEffect(() => {
+        const randomOnline = () => Math.floor(Math.random() * 10 + 2);
+        setStats((prev) => ({ ...prev, online: randomOnline() }));
         const interval = setInterval(() => {
-            setStats((prev) => ({
-                ...prev,
-                online: Math.floor(Math.random() * 30 + 5),
-            }));
+            setStats((prev) => ({ ...prev, online: randomOnline() }));
         }, 5000);
         return () => clearInterval(interval);
     }, []);

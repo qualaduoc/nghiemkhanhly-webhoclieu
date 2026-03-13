@@ -23,15 +23,19 @@ export function FeedbackSection({ feedbacks }: { feedbacks: Feedback[] }) {
     const [sent, setSent] = useState(false);
 
     const handleOpenForm = async () => {
-        const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
+        try {
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                setIsLoggedIn(false);
+                return;
+            }
+            setIsLoggedIn(true);
+            setName(user.user_metadata?.full_name || user.email?.split("@")[0] || "");
+            setShowForm(true);
+        } catch {
             setIsLoggedIn(false);
-            return;
         }
-        setIsLoggedIn(true);
-        setName(user.email?.split("@")[0] || "");
-        setShowForm(true);
     };
 
     const handleSubmit = async () => {

@@ -154,13 +154,12 @@ const ADMIN_MENU = [
 export default function AdminDashboardPage() {
     const [visitorStats, setVisitorStats] = useState(getVisitorStats);
 
-    // Cập nhật online mỗi 5 giây — khớp với trang chủ
+    // Set online ngay khi mount + cập nhật mỗi 5 giây
     useEffect(() => {
+        const randomOnline = () => Math.floor(Math.random() * 10 + 2);
+        setVisitorStats((prev) => ({ ...prev, online: randomOnline() }));
         const interval = setInterval(() => {
-            setVisitorStats((prev) => ({
-                ...prev,
-                online: Math.floor(Math.random() * 10 + 2),
-            }));
+            setVisitorStats((prev) => ({ ...prev, online: randomOnline() }));
         }, 5000);
         return () => clearInterval(interval);
     }, []);

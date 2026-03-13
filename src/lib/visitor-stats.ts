@@ -49,8 +49,8 @@ export function getVisitorStats(): VisitorStats {
     // Lượt xem hôm nay: 20-80
     const todayViews = Math.floor(seededRandom(daySeed + 555) * 60 + 20);
 
-    // Online: 2-12
-    const online = Math.floor(Math.random() * 10 + 2);
+    // Online: 0 mặc định — Client sẽ tự random qua useEffect (tránh hydration mismatch)
+    const online = 0;
 
     // Tổng thành viên: base 35, tăng ~1-3 mỗi ngày
     let totalMembers = 35;
