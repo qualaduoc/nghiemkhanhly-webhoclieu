@@ -134,6 +134,13 @@ const ADMIN_MENU = [
         desc: "SEO, avatar, footer, liên hệ",
         color: "bg-purple-500",
     },
+    {
+        label: "Thống kê truy cập",
+        href: "/admin/statistics",
+        icon: BarChart3,
+        desc: "Báo cáo theo tháng/năm",
+        color: "bg-indigo-500",
+    },
 ];
 
 export default function AdminDashboardPage() {
@@ -144,7 +151,7 @@ export default function AdminDashboardPage() {
         const interval = setInterval(() => {
             setVisitorStats((prev) => ({
                 ...prev,
-                online: Math.floor(Math.random() * 30 + 5),
+                online: Math.floor(Math.random() * 10 + 2),
             }));
         }, 5000);
         return () => clearInterval(interval);
