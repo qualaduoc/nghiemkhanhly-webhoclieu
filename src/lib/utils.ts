@@ -53,9 +53,12 @@ export function formatDownloadCount(count: number): string {
 }
 
 /**
- * Tự động bóc Google Drive file ID từ bất kỳ dạng link nào.
+ * Tự động bóc Google Drive/Docs file ID từ bất kỳ dạng link nào.
  * Hỗ trợ:
  * - https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
+ * - https://docs.google.com/presentation/d/FILE_ID/edit
+ * - https://docs.google.com/document/d/FILE_ID/edit
+ * - https://docs.google.com/spreadsheets/d/FILE_ID/edit
  * - https://drive.google.com/open?id=FILE_ID
  * - https://drive.google.com/uc?id=FILE_ID&export=download
  * - Hoặc chỉ là FILE_ID thuần
@@ -64,9 +67,9 @@ export function extractDriveId(input: string): string {
     if (!input) return "";
     const trimmed = input.trim();
 
-    // Pattern 1: /file/d/FILE_ID/
-    const fileMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (fileMatch) return fileMatch[1];
+    // Pattern 1: /d/FILE_ID/ — tổng quát cho tất cả link Google (Drive, Docs, Slides, Sheets)
+    const dMatch = trimmed.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (dMatch) return dMatch[1];
 
     // Pattern 2: ?id=FILE_ID hoặc &id=FILE_ID
     const idMatch = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
