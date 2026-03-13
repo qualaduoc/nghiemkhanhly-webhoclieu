@@ -1,7 +1,7 @@
 import { MainHeader, MainFooter, LeftSidebar, RightSidebar } from "@/components/layout";
 import { NotebookContent } from "@/components/materials/NotebookContent";
 import { PageTransition } from "@/components/ui/Animations";
-import type { Category, Material, GradeLevel } from "@/types/database";
+import type { Category, Material, GradeLevel, News } from "@/types/database";
 import { createClient } from "@/lib/supabase/server";
 import { getSiteSettings, getApprovedFeedbacks } from "@/lib/actions";
 
@@ -35,28 +35,31 @@ async function fetchData() {
   try {
     const supabase = await createClient();
 
-    const [catRes, latestRes, popularRes] = await Promise.all([
+    const [catRes, latestRes, popularRes, gamesRes] = await Promise.all([
       supabase.from("categories").select("*").order("grade").order("name"),
       supabase.from("materials").select("*").order("created_at", { ascending: false }).limit(6),
       supabase.from("materials").select("*").order("download_count", { ascending: false }).limit(6),
+      supabase.from("news").select("*").order("created_at", { ascending: false }).limit(6),
     ]);
 
     return {
       categories: (catRes.data?.length ? catRes.data : FALLBACK_CATEGORIES) as Category[],
       latestMaterials: (latestRes.data || []) as Material[],
       popularMaterials: (popularRes.data || []) as Material[],
+      games: (gamesRes.data || []) as News[],
     };
   } catch {
     return {
       categories: FALLBACK_CATEGORIES,
       latestMaterials: [] as Material[],
       popularMaterials: [] as Material[],
+      games: [] as News[],
     };
   }
 }
 
 export default async function HomePage() {
-  const [{ categories, latestMaterials, popularMaterials }, settings, feedbacks] = await Promise.all([
+  const [{ categories, latestMaterials, popularMaterials, games }, settings, feedbacks] = await Promise.all([
     fetchData(),
     getSiteSettings(),
     getApprovedFeedbacks().catch(() => []),
@@ -73,6 +76,7 @@ export default async function HomePage() {
             latestMaterials={latestMaterials}
             popularMaterials={popularMaterials}
             feedbacks={feedbacks}
+            games={games}
           />
           <RightSidebar />
         </main>
