@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Search } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Users, Globe, UserPlus, Eye } from "lucide-react";
 
 // =============================================================================
 // RightSidebar - Thanh bên phải
-// Gồm: Góc Phụ Huynh (tin tức cho PH) + Tìm bài học nhanh
+// Gồm: Góc Phụ Huynh + Tìm bài học nhanh + Thống kê truy cập
 // =============================================================================
 
 const QUICK_TAGS = [
@@ -17,8 +17,54 @@ const QUICK_TAGS = [
     "#DeThi",
 ];
 
+// Tạo số giả ngẫu nhiên nhưng cố định theo ngày (seed-based)
+function seededRandom(seed: number): number {
+    const x = Math.sin(seed * 9301 + 49297) * 233280;
+    return x - Math.floor(x);
+}
+
+function getVisitorStats() {
+    const now = new Date();
+    const launchDate = new Date("2025-09-01"); // Ngày "launch" giả
+    const daysSinceLaunch = Math.floor(
+        (now.getTime() - launchDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    // Seed theo ngày hiện tại (cùng ngày = cùng số)
+    const daySeed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+
+    // Tổng truy cập: tăng ~120-280 mỗi ngày
+    let totalVisitors = 12450; // Base
+    for (let i = 0; i < daysSinceLaunch; i++) {
+        totalVisitors += Math.floor(seededRandom(daySeed - i) * 160 + 120);
+    }
+
+    // Thành viên mới hôm nay: 3-15 người
+    const newMembers = Math.floor(seededRandom(daySeed + 777) * 12 + 3);
+
+    // Lượt xem hôm nay: 80-350
+    const todayViews = Math.floor(seededRandom(daySeed + 555) * 270 + 80);
+
+    // Online: 5-35, thay đổi mỗi lần gọi
+    const online = Math.floor(Math.random() * 30 + 5);
+
+    return { totalVisitors, online, newMembers, todayViews };
+}
+
 export function RightSidebar() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [stats, setStats] = useState(getVisitorStats);
+
+    // Cập nhật số online mỗi 5 giây cho hiệu ứng real-time
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setStats((prev) => ({
+                ...prev,
+                online: Math.floor(Math.random() * 30 + 5),
+            }));
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <aside className="w-72 p-4 pt-12 space-y-8 hidden xl:block">
@@ -103,6 +149,64 @@ export function RightSidebar() {
                             {tag}
                         </span>
                     ))}
+                </div>
+            </section>
+
+            {/* Thống kê truy cập */}
+            <section className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl border-2 border-indigo-100 overflow-hidden">
+                <div className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white p-3 font-black text-center text-sm">
+                    📊 THỐNG KÊ TRUY CẬP
+                </div>
+                <div className="p-4 space-y-3">
+                    {/* Tổng truy cập */}
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <Globe size={16} className="text-indigo-600" />
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-[10px] text-gray-500 font-medium">Tổng lượt truy cập</p>
+                            <p className="text-sm font-black text-indigo-700">
+                                {stats.totalVisitors.toLocaleString("vi-VN")}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Đang online */}
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center relative">
+                            <Users size={16} className="text-green-600" />
+                            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse border-2 border-white" />
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-[10px] text-gray-500 font-medium">Đang online</p>
+                            <p className="text-sm font-black text-green-600">
+                                {stats.online}
+                                <span className="text-[9px] text-green-400 font-medium ml-1">người</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Lượt xem hôm nay */}
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <Eye size={16} className="text-orange-500" />
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-[10px] text-gray-500 font-medium">Lượt xem hôm nay</p>
+                            <p className="text-sm font-black text-orange-600">{stats.todayViews}</p>
+                        </div>
+                    </div>
+
+                    {/* Thành viên mới */}
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-pink-100 rounded-lg flex items-center justify-center">
+                            <UserPlus size={16} className="text-pink-500" />
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-[10px] text-gray-500 font-medium">Thành viên mới hôm nay</p>
+                            <p className="text-sm font-black text-pink-600">+{stats.newMembers}</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </aside>
