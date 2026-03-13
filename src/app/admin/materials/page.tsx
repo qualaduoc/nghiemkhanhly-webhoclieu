@@ -33,6 +33,7 @@ const EMPTY_FORM: MaterialFormData = {
     description: "",
     cover_image: "",
     drive_id: "",
+    external_url: "",
     file_type: "pdf",
     category_id: "",
 };
@@ -76,6 +77,7 @@ export default function AdminMaterialsPage() {
             description: mat.description || "",
             cover_image: mat.cover_image || "",
             drive_id: mat.drive_id,
+            external_url: mat.external_url || "",
             file_type: mat.file_type,
             category_id: mat.category_id,
         });
@@ -83,8 +85,8 @@ export default function AdminMaterialsPage() {
     };
 
     const handleSave = async () => {
-        if (!form.title || !form.drive_id || !form.category_id) {
-            alert("Vui lòng điền Tiêu đề, Drive ID và Danh mục!");
+        if (!form.title || (!form.drive_id && !form.external_url) || !form.category_id) {
+            alert("Vui lòng điền Tiêu đề, Link tải (Drive hoặc Link khác) và Danh mục!");
             return;
         }
         setSaving(true);
@@ -175,7 +177,7 @@ export default function AdminMaterialsPage() {
 
                                     {/* Google Drive Link */}
                                     <div>
-                                        <label className="text-sm font-bold text-gray-600 block mb-1">Link Google Drive *</label>
+                                        <label className="text-sm font-bold text-gray-600 block mb-1">Link Google Drive</label>
                                         <input
                                             value={form.drive_id}
                                             onChange={(e) => setForm({ ...form, drive_id: extractDriveId(e.target.value) })}
@@ -183,13 +185,27 @@ export default function AdminMaterialsPage() {
                                             placeholder="Dán link Google Drive hoặc ID vào đây..."
                                         />
                                         <p className="text-[10px] text-gray-400 mt-1">
-                                            📋 Paste cả link (vd: drive.google.com/file/d/xxx/view) → hệ thống tự bóc ID
+                                            📋 Paste cả link → hệ thống tự bóc ID và tải trực tiếp
                                         </p>
                                         {form.drive_id && (
                                             <p className="text-[10px] text-green-600 font-bold mt-1">
                                                 ✅ Drive ID: {form.drive_id}
                                             </p>
                                         )}
+                                    </div>
+
+                                    {/* Link tải khác */}
+                                    <div>
+                                        <label className="text-sm font-bold text-gray-600 block mb-1">Link tải khác</label>
+                                        <input
+                                            value={form.external_url}
+                                            onChange={(e) => setForm({ ...form, external_url: e.target.value })}
+                                            className="w-full border-2 border-gray-200 rounded-xl p-3 text-sm focus:border-blue-400 focus:outline-none"
+                                            placeholder="https://example.com/file.pdf"
+                                        />
+                                        <p className="text-[10px] text-gray-400 mt-1">
+                                            🔗 Nếu điền link này, nút Tải sẽ mở link này thay vì Google Drive
+                                        </p>
                                     </div>
 
                                     {/* Category + File Type */}

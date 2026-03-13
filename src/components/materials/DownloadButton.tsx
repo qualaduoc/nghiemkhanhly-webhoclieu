@@ -5,15 +5,17 @@ import { recordDownload } from "@/lib/actions";
 import { getDriveDownloadUrl } from "@/lib/utils";
 
 // =============================================================================
-// DownloadButton — Ghi lịch sử + Direct Download (không lộ link Drive)
+// DownloadButton — Ưu tiên external_url, fallback Google Drive direct download
 // =============================================================================
 
 export function DownloadButton({
     materialId,
     driveId,
+    externalUrl,
 }: {
     materialId: string;
     driveId: string;
+    externalUrl?: string | null;
 }) {
     const handleClick = async () => {
         try {
@@ -22,15 +24,20 @@ export function DownloadButton({
             // Không block download nếu lỗi ghi lịch sử
         }
 
-        // Direct download — file tự tải, không mở tab Drive
-        const link = document.createElement("a");
-        link.href = getDriveDownloadUrl(driveId);
-        link.setAttribute("download", "");
-        link.setAttribute("target", "_blank");
-        link.rel = "noopener noreferrer";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // Ưu tiên: external_url > Google Drive direct download
+        if (externalUrl) {
+            window.open(externalUrl, "_blank", "noopener,noreferrer");
+        } else {
+            // Direct download qua Google Drive — không lộ link gốc
+            const link = document.createElement("a");
+            link.href = getDriveDownloadUrl(driveId);
+            link.setAttribute("download", "");
+            link.setAttribute("target", "_blank");
+            link.rel = "noopener noreferrer";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     };
 
     return (

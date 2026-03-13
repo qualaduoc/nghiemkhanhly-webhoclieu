@@ -115,7 +115,7 @@ export default async function MaterialDetailPage({
                                     <div className="prose prose-sm max-w-none mb-8" dangerouslySetInnerHTML={{ __html: material.description }} />
                                 )}
 
-                                <DownloadButton materialId={material.id} driveId={material.drive_id} />
+                                <DownloadButton materialId={material.id} driveId={material.drive_id} externalUrl={material.external_url} />
                             </div>
                         </div>
                     </FadeUp>

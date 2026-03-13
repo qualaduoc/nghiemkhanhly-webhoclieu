@@ -50,6 +50,7 @@ export interface Material {
   description: string | null; // Mô tả chi tiết (rich text HTML)
   cover_image: string | null; // URL ảnh bìa
   drive_id: string; // ID file trên Google Drive
+  external_url: string | null; // Link tải khác (không qua Drive)
   file_type: FileType; // Loại file: pdf, docx...
   download_count: number; // Số lượt tải
   category_id: string; // FK -> categories.id
@@ -150,6 +151,7 @@ export interface MaterialFormData {
   description: string;
   cover_image: string;
   drive_id: string;
+  external_url: string;
   file_type: FileType;
   category_id: string;
 }
